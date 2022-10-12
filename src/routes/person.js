@@ -4,7 +4,7 @@ const {Person} = require('../models/index.js');
 const express = require('express');
 
 const router = express.Router()
-
+console.log(router)
 //requests
 router.post("/person", addPerson);
 router.get("/person", getPerson);

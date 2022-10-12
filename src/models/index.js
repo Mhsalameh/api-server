@@ -7,7 +7,6 @@ dotenv.config();
 const food = require("./food.js");
 const person = require("./person.js");
 const Collection = require("./collection-class.js")
-
 const POSTGRES_URI =
   process.env.NODE_ENV === "test" ? "sqlite:memory" : process.env.DATABASE_URL;
 
