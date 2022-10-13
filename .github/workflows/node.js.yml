@@ -60,10 +60,10 @@ jobs:
     - name: compute-ssh
       uses: 'google-github-actions/ssh-compute@v0'
       with:
-        instance_name: 'githubactions'
-        zone: 'us-west4-b '
+        instance_name: githubactions
+        zone: us-west4-b
         ssh_private_key: ${{ secrets.GCLOUD_SSH_KEY }} 
-        command: 'echo Hello world'
+        command: echo 'Hello world'
     
     - name: test
       run: |-
