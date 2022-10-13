@@ -63,7 +63,9 @@ jobs:
         instance_name: githubactions
         zone: us-west4-b
         ssh_private_key: ${{ secrets.GCLOUD_SSH_KEY }} 
+        user: mohsalameh1
         command: echo 'Hello world'
+
     
     - name: test
       run: |-
