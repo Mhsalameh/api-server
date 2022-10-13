@@ -53,6 +53,6 @@ jobs:
     - name: 'Authenticate to google cloud'
       uses: 'google-github-actions/auth@v0'
       with:
-        credentials_jsong: ${{ secrets.GSERVICE_KEY }}
+        credentials_json: ${{ secrets.GSERVICE_KEY }}
     - name: check gcloud
       run: gcloud info
