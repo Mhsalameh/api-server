@@ -64,7 +64,7 @@ jobs:
         zone: us-west4-b
         ssh_private_key: ${{ secrets.GCLOUD_SSH_KEY }} 
         user: mohsalameh1
-        command: echo 'Hello world'
+        command: echo 'Hello world' > hello.txt
 
     
     - name: test
