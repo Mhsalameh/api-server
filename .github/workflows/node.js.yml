@@ -56,3 +56,16 @@ jobs:
         credentials_json: ${{ secrets.GSERVICE_KEY }}
     - name: check gcloud
       run: gcloud info
+
+    - name: compute-ssh
+      uses: 'google-github-actions/ssh-compute@v0'
+      with:
+        instance_name: 'githubactions'
+        zone: 'us-west4-b '
+        ssh_private_key: ${{ secrets.GCLOUD_SSH_KEY }} 
+        command: 'echo Hello world'
+    
+    - name: test
+      run: |-
+        echo ${{ steps.compute-ssh.outputs.stdout }}
+        echo ${{ steps.compute-ssh.outputs.stderr }}
