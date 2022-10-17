@@ -67,7 +67,7 @@ jobs:
         command: |-
           docker stop api psql
           docker rm api psql
-          docker run -d --name psql --network task_db -e -p 3000:3000 POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=api -d postgres 
+          docker run -d --name psql --network task_db -p 3000:3000 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=api -d postgres 
           docker run --name api  --network task_db -e DATABASE_URL=postgresql://postgres:postgres@psql:5432/api -e PORT=3000 mhsalameh/apiserver
     
     - name: 
