@@ -105,7 +105,7 @@ jobs:
           export CORS_ORIGIN= $CORS_ORIGIN
           export SERVER_PORT= $SERVER_PORT
           export NODE_ENV=$NODE_ENV
-          cd /home/mosalamop/api-server
+          cd /home/$SSH_USER/api-server
           git checkout main
           git pull origin main
           nvm use 18.12.0
