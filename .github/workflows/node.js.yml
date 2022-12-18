@@ -118,4 +118,5 @@ jobs:
           rm -rf node_modules
           npm install
           pm2 reload all
+          exit 0
           EOF
