@@ -111,10 +111,10 @@ jobs:
       - name: ssh to machine & pull latest changes from master branch and reload pm2
         run: |
           ssh -tty production << 'EOF'
-          export WORK_DIR="/home/mosalamop/api-server"
-          export CORS_ORIGIN=  $CORS_ORIGIN
-          export SERVER_PORT=  $SERVER_PORT
-          export NODE_ENV= $NODE_ENV
+          export WORK_DIR="/home/${{ secrets.SSH_USER }}/api-server"
+          export CORS_ORIGIN=  '*'
+          export SERVER_PORT=  3000
+          export NODE_ENV= production
           export SHREDTIME_DB_USERNAME= $SHREDTIME_DB_USERNAME
           export SHREDTIME_DB_PASSWORD= $SHREDTIME_DB_PASSWORD
           export SHREDTIME_DB_PORT= $SHREDTIME_DB_PORT
