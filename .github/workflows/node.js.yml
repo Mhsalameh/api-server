@@ -112,6 +112,17 @@ jobs:
         run: |
           ssh -tty production << 'EOF'
           export WORK_DIR="/home/mosalamop/api-server"
+          export CORS_ORIGIN= ${CORS_ORIGIN}
+          export SERVER_PORT= ${SERVER_PORT}
+          export NODE_ENV=${NODE_ENV}
+          export SHREDTIME_DB_USERNAME=${SHREDTIME_DB_USERNAME}
+          export SHREDTIME_DB_PASSWORD=${SHREDTIME_DB_PASSWORD}
+          export SHREDTIME_DB_PORT=${SHREDTIME_DB_PORT}
+          export SHREDTIME_DB_HOST=${SHREDTIME_DB_HOST}
+          export SHREDTIME_DB_DATABASE=${SHREDTIME_DB_DATABASE}
+          export PASSWORD_SALT_ROUNDS=${PASSWORD_SALT_ROUNDS}
+          export ACCESS_TOKEN_EXPIRY=${ACCESS_TOKEN_EXPIRY}
+          export ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
           echo "SERVER_PORT:          $SERVER_PORT"
           echo "WORK_DIR:             $WORK_DIR"
           cd $WORK_DIR
