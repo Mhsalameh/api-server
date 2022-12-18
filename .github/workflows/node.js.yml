@@ -88,7 +88,7 @@ on:
 jobs:
   deployment:
     name: Production Deployment
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     environment: production
     steps:
       - name: ssh to machine & pull latest changes from master branch and reload pm2 
