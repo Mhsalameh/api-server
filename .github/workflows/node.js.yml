@@ -83,7 +83,7 @@ concurrency:
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deployment:
