@@ -106,8 +106,10 @@ jobs:
           export SERVER_PORT= $SERVER_PORT
           export NODE_ENV=$NODE_ENV
           cd /home/mosalamop/api-server
+          git checkout main
+          git pull origin main
           nvm use 18.12.0
           npm install
           pm2 reload all
-          exit
+          exit 0
           EOF
