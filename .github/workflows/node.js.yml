@@ -113,7 +113,7 @@ jobs:
           ssh -tty production << 'EOF'
           WORK_DIR="/home/mosalamop/api-server"
           export SERVER_PORT='3000'
-          echo "SERVER_PORT"
+          echo "SERVER_PORT:          $SERVER_PORT"
           echo "WORK_DIR:             $WORK_DIR"
           cd $WORK_DIR
           git pull origin main
