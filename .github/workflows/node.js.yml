@@ -104,15 +104,14 @@ jobs:
             StrictHostKeyChecking no
           END
         env:
-          SSH_USER: mosalamop
-          SSH_KEY: ${{secrets.SSH_DEPLOYMENT_KEY}}
-          SSH_HOST: ${{secrets.SHREDTIME_API_IP}}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{secrets.SSH_DEPLOYMENT_KEY }}
+          SSH_HOST: ${{secrets.SHREDTIME_API_IP }}
   
       - name: ssh to machine & pull latest changes from master branch and reload pm2
         run: |
           ssh -tty production << 'EOF'
-          WORK_DIR="/home/mosalamop/api-server"
-          export SERVER_PORT='3000'
+          export WORK_DIR="/home/mosalamop/api-server"
           echo "SERVER_PORT:          $SERVER_PORT"
           echo "WORK_DIR:             $WORK_DIR"
           cd $WORK_DIR
@@ -122,3 +121,18 @@ jobs:
           pm2 reload all
           exit 0
           EOF
+        env: 
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_DEPLOYMENT_KEY: ${{ secrets.SSH_DEPLOYMENT_KEY }}
+          SHREDTIME_API_IP: ${{ secrets.SHREDTIME_API_IP }}
+          CORS_ORIGIN: '*'
+          SERVER_PORT: '3000'
+          NODE_ENV: 'production'
+          SHREDTIME_DB_USERNAME: ${{ secrets.SHREDTIME_DB_USERNAME }}
+          SHREDTIME_DB_PASSWORD: ${{ secrets.SHREDTIME_DB_PASSWORD }}
+          SHREDTIME_DB_PORT: ${{ secrets.SHREDTIME_DB_PORT }}
+          SHREDTIME_DB_HOST: ${{ secrets.SHREDTIME_DB_HOST }}
+          SHREDTIME_DB_DATABASE: ${{ secrets.SHREDTIME_DB_DATABASE }}
+          PASSWORD_SALT_ROUNDS: ${{ secrets.PASSWORD_SALT_ROUNDS }}
+          ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY }}
+          ACCESS_TOKEN_SECRET: ${{ secrest.ACCESS_TOKEN_SECRET }}
