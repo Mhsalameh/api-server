@@ -102,7 +102,6 @@ jobs:
         run: |
           echo $SSH_DEPLOYMENT_KEY > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key $SSH_USER@$SHREDTIME_API_IP -tty << 'EOF'
-          set -ex
           export CORS_ORIGIN= $CORS_ORIGIN
           export SERVER_PORT= $SERVER_PORT
           export NODE_ENV=$NODE_ENV
@@ -112,6 +111,5 @@ jobs:
           nvm use 18.12.0
           npm install
           pm2 reload all
-          set +e
           exit
           EOF
