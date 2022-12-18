@@ -91,28 +91,31 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: ssh to machine & pull latest changes from master branch and reload pm2
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh                                                       # Creating the ssh directory for the runner
+          echo "$SSH_KEY" > ~/.ssh/production.key                               # Creating the file that holds the ssh key for user on the production server
+          chmod 600 ~/.ssh/production.key                                       # Giving the right permissions for the key file
+          cat >>~/.ssh/config <<END
+          Host production
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking no
+          END
         env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_DEPLOYMENT_KEY: ${{ secrets.SSH_DEPLOYMENT_KEY }}
-          SHREDTIME_API_IP: ${{ secrets.SHREDTIME_API_IP }}
-          CORS_ORIGIN: '*'
-          SERVER_PORT: '3000'
-          NODE_ENV: 'production'
-
-        with:
-          host: ${{ secrets.SHREDTIME_API_IP }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_DEPLOYMENT_KEY }}
-          port: '22'
-          script: |
-            export CORS_ORIGIN= $CORS_ORIGIN
-            export SERVER_PORT= $SERVER_PORT
-            export NODE_ENV=$NODE_ENV
-            cd /home/${{secrets.SSH_USER}}/api-server
-            git checkout main
-            git pull origin main
-            nvm use 18.12.0
-            npm install
-            pm2 reload all
+          SSH_USER: mosalamop
+          SSH_KEY: ${{secrets.SSH_DEPLOYMENT_KEY}}
+          SSH_HOST: ${{secrets.SHREDTIME_API_IP}}
+  
+      - name: ssh to machine & pull latest changes from master branch and reload pm2
+        run: |
+          ssh -tty production << 'EOF'
+          WORK_DIR="/home/mosalamop/api-server"
+          echo "WORK_DIR:             $WORK_DIR"
+          cd $WORK_DIR
+          git pull origin main
+          rm -rf node_modules
+          npm install
+          pm2 reload all
+          EOF
