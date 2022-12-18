@@ -93,7 +93,7 @@ jobs:
     steps:
       - name: ssh to machine & pull latest changes from master branch and reload pm2 
         run: |
-          echo "$SSH_DEPLOYMENT_KEY" > private_key && chmod 600 private_key
+          echo ${SSH_DEPLOYMENT_KEY} > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${SSH_USER}@${SHREDTIME_API_IP} -tty << 'EOF'
           export CORS_ORIGIN= ${CORS_ORIGIN}
           export SERVER_PORT= ${SERVER_PORT}
