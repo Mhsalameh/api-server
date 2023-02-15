@@ -8,3 +8,4 @@ require('dotenv').config();
 db.sync().then(()=>{
     server.start(process.env.PORT || 3000);
 })
+// test
